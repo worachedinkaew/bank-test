@@ -1,8 +1,8 @@
 import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
 
 @Entity()
-export class Order {
-  @PrimaryGeneratedColumn()
+export class Orders {
+  @PrimaryGeneratedColumn('uuid')
   _id: number;
 
   @Column()

@@ -1,34 +1,54 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-// import { CreateOrderDto } from './dto/create-order.dto';
-// import { UpdateOrderDto } from './dto/update-order.dto';
-import { Order } from './entities/order.entity';
+import { Orders } from './entities/orders.entity';
+import { User } from '../users/entities/user.entity';
+import { Service } from '../services/entities/service.entity';
 
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectRepository(Order)
-    private orderRepository: Repository<Order>,
+    @InjectRepository(Orders)
+    private ordersRepository: Repository<Orders>
   ) {}
 
-  // create(createOrderDto: CreateOrderDto) {
-  //   return 'This action adds a new order';
-  // }
-
   findAll() {
-    return this.orderRepository.find();
+    return this.ordersRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async getMyOrder(customerId: string) {
+
+    let getOrder = await this.ordersRepository
+      .createQueryBuilder("orders")
+      .select(`*, user._id As customerId, service._id AS serviceId`)
+      .innerJoin(User,"user","user._id = orders.customerId")
+      .leftJoin(Service,"service","service._id = orders.serviceId")
+      .where("orders.customerId = :customerId", {customerId: customerId})
+      .getRawMany()
+
+    const result = await getOrder.map((item) => {
+      return {
+        _id: item._id,
+        service: {
+          _id: item.serviceId,
+          name: item.name,
+          price: item.price,
+          picture: item.picture,
+          description: item.description
+        },
+        customer: {
+          _id: item.customerId,
+          fullName: item.fullName,
+          username: item.username
+        },
+        createdAt: item.createdAt
+      }
+    })
+
+    return result
   }
 
-  // update(id: number, updateOrderDto: UpdateOrderDto) {
-  //   return `This action updates a #${id} order`;
-  // }
-
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  booking(serviceId: string, customerId: string) {
+    return this.ordersRepository.save({ serviceId, customerId, createdAt: new Date() } );
   }
 }

@@ -3,15 +3,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
 import { AuthModule } from './modules/v1/auth/auth.module';
 import { UsersModule } from './modules/v1/users/users.module';
 import { OrdersModule } from './modules/v1/orders/orders.module';
+import { ServicesModule } from './modules/v1/services/services.module';
 
-const modulesImport = [AuthModule, OrdersModule, UsersModule];
+const modulesImport = [AuthModule, OrdersModule, UsersModule, ServicesModule];
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), ...modulesImport],
+  imports: [
+    TypeOrmModule.forRoot(),
+    ...modulesImport
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

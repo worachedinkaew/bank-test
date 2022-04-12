@@ -20,21 +20,11 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} user`;
-  // }
-
-  async findOne(username: string): Promise<User | undefined> {
-    return this.userRepository.findOne({
-      where: {"username":username}
-  });
+  async findOne(condition: any): Promise<User> {
+    return this.userRepository.findOne(condition);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return this.userRepository.update(id, updateUserDto);
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
   }
 }
