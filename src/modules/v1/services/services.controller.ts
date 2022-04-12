@@ -4,11 +4,13 @@ import {
   Post,
   Body,
   Param,
+  Request,
+  UseGuards
 } from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { OrdersService } from '../orders/orders.service';
 import { CreateServiceDto} from './dto/create-service.dto'
-
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('v1/services')
 export class ServicesController {
@@ -36,9 +38,10 @@ export class ServicesController {
   }
 
   /* จองบริการ */
+  @UseGuards(JwtAuthGuard)
   @Post(':serviceId/booking')
-  booking(@Param('serviceId') serviceId: string) {
-    const customerId = 'ssdf'
+  booking(@Request() req, @Param('serviceId') serviceId: string) {
+    const customerId = req.user.customerId
     return this.ordersService.booking(serviceId, customerId);
   }
 }
