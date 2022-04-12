@@ -20,8 +20,14 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  // findOne(id: number) {
+  //   return `This action returns a #${id} user`;
+  // }
+
+  async findOne(username: string): Promise<User | undefined> {
+    return this.userRepository.findOne({
+      where: {"username":username}
+  });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

@@ -7,6 +7,7 @@ import {
   // Param,
   // Delete,
 } from '@nestjs/common';
+import bcrypt from 'bcrypt';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 // import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,8 +18,14 @@ export class UsersController {
 
   /* สมัครใช้บริการ */
   @Post('register')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async register(@Body() input: CreateUserDto) {
+
+    const hashPassword =  await bcrypt.hash(input.password, 10)
+
+    return this.usersService.create({
+      ...input,
+      password: hashPassword
+    });
   }
 
   @Get()
