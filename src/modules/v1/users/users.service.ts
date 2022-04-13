@@ -20,15 +20,15 @@ export class UsersService {
     return this.userRepository.save(input);
   }
 
-  findAll() {
-    return this.userRepository.find();
+  async findAll() {
+    return await this.userRepository.find();
   }
 
-  findOne(condition: any): Promise<User> {
-    return this.userRepository.findOne(condition);
+  async findOne(condition: any): Promise<User> {
+    return await this.userRepository.findOne(condition);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(id, updateUserDto);
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    return await this.userRepository.update(id, updateUserDto);
   }
 }

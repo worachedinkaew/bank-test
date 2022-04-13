@@ -14,10 +14,10 @@ export class OrdersController {
   /* ดูบริการที่ลูกค้าจองไว้ */
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Request() req) {
+  async findAll(@Request() req) {
     try {
       const customerId = req.user.customerId
-    return this.ordersService.getMyOrder(customerId);
+    return await this.ordersService.getMyOrder(customerId);
     } catch (error) {
       throw new BadRequestException('get booking failed');
     }

@@ -48,12 +48,12 @@ export class OrdersService {
     return result
   }
 
-  booking(serviceId: string, customerId: string) {
+  async booking(serviceId: string, customerId: string) {
 
-    const checkDuplicate = this.ordersRepository.findOne({where: {serviceId, customerId}})
+    const checkDuplicate = await this.ordersRepository.findOne({where: {serviceId, customerId}})
 
     if(checkDuplicate) throw new Error('Duplicate this service');
 
-    return this.ordersRepository.save({ serviceId, customerId, createdAt: new Date() } );
+    return await this.ordersRepository.save({ serviceId, customerId, createdAt: new Date() } );
   }
 }

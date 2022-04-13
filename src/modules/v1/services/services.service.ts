@@ -19,6 +19,8 @@ export class ServicesService {
   }
 
   async findOne(condition: any): Promise<Service> {
-    return this.serviceRepository.findOne(condition);
+    const result = await this.serviceRepository.findOne(condition);
+    if(!result) throw new Error('This Service Not Found')
+    return result
   }
 }

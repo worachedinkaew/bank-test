@@ -23,32 +23,32 @@ export class ServicesController {
   /* สร้างบริการ */
   @Post()
   async createService(@Body() input: CreateServiceDto) {
-    return this.servicesService.createService(input);
+    return await this.servicesService.createService(input);
   }
 
   /* แสดงลิสต์ของบริการต่างๆ แสดงลิสต์ของบริการต่างๆ  */
   @Get()
-  findAll() {
-    return this.servicesService.findAll();
+  async findAll() {
+    return await this.servicesService.findAll();
   }
 
   /* แสดงรายละเอียดของบริการ */
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     try {
-      return this.servicesService.findOne({_id: id});
+      return await this.servicesService.findOne({_id: id});
     } catch (error) {
-      throw new BadRequestException('get detail failed');
+      throw new BadRequestException(error.message);
     }
   }
 
   /* จองบริการ */
   @UseGuards(JwtAuthGuard)
   @Post(':serviceId/booking')
-  booking(@Request() req, @Param('serviceId') serviceId: string) {
+  async booking(@Request() req, @Param('serviceId') serviceId: string) {
     try {
       const customerId = req.user.customerId
-    return this.ordersService.booking(serviceId, customerId);
+    return await this.ordersService.booking(serviceId, customerId);
     } catch (error) {
       throw new BadRequestException(error.message);
     }
