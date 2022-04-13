@@ -16,18 +16,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // /* สมัครใช้บริการ */
-  // @Post('register')
-  // async register(@Body() input: CreateUserDto) {
-
-  //   const hashPassword =  await bcrypt.hash(input.password, 10)
-
-  //   return this.usersService.create({
-  //     ...input,
-  //     password: hashPassword
-  //   });
-  // }
-
   @Get()
   async findAll() {
     return await this.usersService.findAll();

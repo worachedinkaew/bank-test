@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 13/04/2022 12:57:16
+ Date: 13/04/2022 13:27:43
 */
 
 SET NAMES utf8mb4;
@@ -33,8 +33,8 @@ CREATE TABLE `orders` (
 -- Records of orders
 -- ----------------------------
 BEGIN;
-INSERT INTO `orders` VALUES ('fd109cf0-a682-4200-be98-f5ca7761eae4', '68c6c737-31d5-4e37-98a2-8a4d01607aa6', '2022-04-13 12:56:46', '81b81c9c-68fe-4af4-bbce-22cdfafd4b51');
-INSERT INTO `orders` VALUES ('ce49f0dd-7242-4aaa-b799-1b23004d0543', '68c6c737-31d5-4e37-98a2-8a4d01607aa6', '2022-04-13 12:56:30', '9382d160-e0c8-4bae-81fd-9d4062abe9af');
+INSERT INTO `orders` VALUES ('cb8d8b98-f6f0-44a0-aa74-9b4b812ab970', '68c6c737-31d5-4e37-98a2-8a4d01607aa6', '2022-04-13 13:21:12', 'c0c9f396-d31d-4bea-ba1c-c2ee9ca9bd3c');
+INSERT INTO `orders` VALUES ('ce49f0dd-7242-4aaa-b799-1b23004d0543', '68c6c737-31d5-4e37-98a2-8a4d01607aa6', '2022-04-13 13:23:05', 'fac2c096-263a-461f-9b05-9b31bc2e26da');
 COMMIT;
 
 -- ----------------------------
@@ -76,8 +76,8 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
+INSERT INTO `user` VALUES ('banknaja', '$2b$10$W3cscwGlRupHoEQSMsq.M.2/h72LmmCdYYeG2v/k6n0QTgXsXlIMu', 'Bank ABC', '681b621a-d876-4637-905f-f06b46394c50');
 INSERT INTO `user` VALUES ('testusername', '$2b$10$iF9QObiwej2xVphExBSLFOdc.tt15ACoIeDsl4s65y0RUCii.NwC.', 'test', '68c6c737-31d5-4e37-98a2-8a4d01607aa6');
-INSERT INTO `user` VALUES ('test1', '$2b$10$4CCJrCbKss8Ge/I2AMejNOJIKbxQYpPhQsL3QzntsVIM7UUnBA2sS', 'test3', '8f42d450-f354-4107-af1d-35157e3ac6e8');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

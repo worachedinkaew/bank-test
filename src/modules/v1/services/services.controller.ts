@@ -48,7 +48,11 @@ export class ServicesController {
   async booking(@Request() req, @Param('serviceId') serviceId: string) {
     try {
       const customerId = req.user.customerId
-    return await this.ordersService.booking(serviceId, customerId);
+
+      /* check ก่อนว่ามี service นี้จริงมั้ย */
+      await this.servicesService.findOne({_id: serviceId});
+
+      return await this.ordersService.booking(serviceId, customerId);
     } catch (error) {
       throw new BadRequestException(error.message);
     }
