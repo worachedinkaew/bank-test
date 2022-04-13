@@ -13,7 +13,7 @@ import { AuthController } from './auth.controller';
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: '!1234',
+      secret: process.env.JWT_SECRET_KEY,
       signOptions: {expiresIn: '1d'}
     }),
     TypeOrmModule.forFeature([User]),
