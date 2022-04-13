@@ -8,8 +8,8 @@ export class Service {
   @Column()
   name: string;
 
-  @Column()
-  price: string;
+  @Column({ type: "decimal", precision: 10, scale: 2, nullable: true })
+  price: number;
 
   @Column()
   picture: string;
