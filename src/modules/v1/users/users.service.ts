@@ -12,15 +12,19 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.userRepository.save(createUserDto);
+  async register(input: CreateUserDto) {
+    const checkDuplicate = await this.userRepository.findOne({where: {username: input.username}});
+
+    if(checkDuplicate) throw new Error('Duplicate username');
+
+    return this.userRepository.save(input);
   }
 
   findAll() {
     return this.userRepository.find();
   }
 
-  async findOne(condition: any): Promise<User> {
+  findOne(condition: any): Promise<User> {
     return this.userRepository.findOne(condition);
   }
 

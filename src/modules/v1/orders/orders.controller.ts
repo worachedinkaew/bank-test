@@ -2,10 +2,11 @@ import {
   Controller,
   Get,
   Request,
-  UseGuards
+  UseGuards,
+  BadRequestException
 } from '@nestjs/common';
 import { OrdersService } from './orders.service'
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 @Controller('v1/orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
@@ -14,7 +15,11 @@ export class OrdersController {
   @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Request() req) {
-    const customerId = req.user.customerId
+    try {
+      const customerId = req.user.customerId
     return this.ordersService.getMyOrder(customerId);
+    } catch (error) {
+      throw new BadRequestException('get booking failed');
+    }
   }
 }

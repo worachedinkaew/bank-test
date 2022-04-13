@@ -49,6 +49,11 @@ export class OrdersService {
   }
 
   booking(serviceId: string, customerId: string) {
+
+    const checkDuplicate = this.ordersRepository.findOne({where: {serviceId, customerId}})
+
+    if(checkDuplicate) throw new Error('Duplicate this service');
+
     return this.ordersRepository.save({ serviceId, customerId, createdAt: new Date() } );
   }
 }
